@@ -1,6 +1,7 @@
 package com.eunoiamo.nutritracker.presentation.pages
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.R
+import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.ui.theme.orange700
 
 @Preview
@@ -76,7 +83,7 @@ fun SignUpScreen(navController: NavController) {
                     Icon(
                         painter = painterResource(id = R.drawable.chevron_back_circle),
                         contentDescription = "Back",
-                        tint = Color.Black,
+                        tint = Color.Gray,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
@@ -97,84 +104,68 @@ fun SignUpScreen(navController: NavController) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 140.dp),
+                        .padding(bottom = 40.dp),
                     color = Color.Black
                 )
 
-                TextField(
+                RoundedTextField(
                     value = username,
                     onValueChange = { username = it },
-                    label = { Text("Username") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .padding(vertical = 4.dp)
-                )
+                    label = "Username",
+                    leadingIcon = Icons.Default.Person)
 
-                TextField(
+                Spacer(modifier = Modifier.height(8.dp))
+
+                RoundedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .padding(vertical = 4.dp)
-                )
+                    label = "Email",
+                    leadingIcon = Icons.Default.Email)
 
+                Spacer(modifier = Modifier.height(8.dp))
                 Row (
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    TextField(
+                    RoundedTextField(
                         value = weight,
                         onValueChange = { weight = it },
-                        label = { Text("Weight (Kg)") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier
-                            .weight(1f)
-                            .clip(RoundedCornerShape(16.dp))
-                            .padding(end = 8.dp)
+                        label = "Weight (Kg)",
+                        keyboardType = KeyboardType.Number,
+                        modifier = Modifier.weight(1f).padding(end = 8.dp)
                     )
-                    TextField(
+                    RoundedTextField(
                         value = height,
                         onValueChange = { height = it },
-                        label = { Text("Height (cm)") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier
-                            .weight(1f)
-                            .clip(RoundedCornerShape(16.dp))
-                            .padding(start = 8.dp)
+                        label = "Height (cm)",
+                        keyboardType = KeyboardType.Number,
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
                     )
                 }
-                TextField(
+                Spacer(modifier = Modifier.height(8.dp))
+                RoundedTextField(
                     value = age,
                     onValueChange = { age = it },
-                    label = { Text("Age") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .padding(vertical = 4.dp)
+                    label = "Age",
+                    keyboardType = KeyboardType.Number
                 )
-                TextField(
+
+                Spacer(modifier = Modifier.height(8.dp))
+                RoundedTextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("Password") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .padding(vertical = 4.dp)
+                    label = "Password",
+                    leadingIcon = Icons.Default.Lock,
+                    visualTransformation = PasswordVisualTransformation()
                 )
-                TextField(
+                Spacer(modifier = Modifier.height(8.dp))
+                RoundedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
-                    label = { Text("Confirm Password") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .padding(vertical = 4.dp)
+                    label = "Confirm Password",
+                    leadingIcon = Icons.Default.Lock,
+                    visualTransformation = PasswordVisualTransformation()
                 )
 
                 Spacer(modifier = Modifier.height(30.dp))

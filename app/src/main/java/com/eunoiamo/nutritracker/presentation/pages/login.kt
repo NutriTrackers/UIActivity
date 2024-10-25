@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.R
+import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.ui.theme.blue100
 import com.eunoiamo.nutritracker.ui.theme.blue500
 import com.eunoiamo.nutritracker.ui.theme.orange700
@@ -78,7 +79,7 @@ fun LoginScreen(navController: NavController) {
                     Icon(
                         painter= painterResource(id = R.drawable.chevron_back_circle),
                         contentDescription = "Back",
-                        tint = Color.Black,
+                        tint = Color.Gray,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
@@ -102,68 +103,19 @@ fun LoginScreen(navController: NavController) {
                         .padding(bottom = 140.dp),
                     color = Color.Black,
                 )
-                TextField(
+                RoundedTextField(
                     value = username,
                     onValueChange = { username = it },
-                    label = { Text("Username") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color(0xFFFFD54F)),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = "User Icon",
-                            tint = Color.Gray
-                        )
-                    },
-                    trailingIcon = {
-                        if (username.isNotEmpty()) {
-                            IconButton(onClick = { username = "" }) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = "Clear Text",
-                                    tint = Color.Gray
-                                )
-                            }
-                        }
-                    },
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Gray
-                    ),
-                    singleLine = true
+                    label = "Username",
+                    leadingIcon = Icons.Default.Person
                 )
-
-
-
                 Spacer(modifier = Modifier.height(12.dp))
-                TextField(
+                RoundedTextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("Password") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp)),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Lock,
-                            contentDescription = "Key Icon",
-                            tint = Color.Gray
-                        )
-                    },
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Gray
-                    ),
+                    label = "Password",
+                    leadingIcon = Icons.Default.Lock,
                     visualTransformation = PasswordVisualTransformation()
-
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
