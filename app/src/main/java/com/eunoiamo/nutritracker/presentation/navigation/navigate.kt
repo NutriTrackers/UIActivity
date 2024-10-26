@@ -6,20 +6,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.pages.HomeScreen
 import com.eunoiamo.nutritracker.presentation.pages.LoginScreen
+import com.eunoiamo.nutritracker.presentation.pages.ProfileScreen
+import com.eunoiamo.nutritracker.presentation.pages.SettingScreen
 import com.eunoiamo.nutritracker.presentation.pages.SignUpScreen
 
 @Composable
 fun NavbarController () {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "signUp") {
-        composable("login") {
-            LoginScreen(navController = navController)
-        }
-        composable("signUp") {
-            SignUpScreen(navController = navController)
-        }
-        composable("homeScreen") {
-            HomeScreen(navController = navController)
-        }
+        composable("login") { LoginScreen(navController = navController) }
+        composable("signUp") { SignUpScreen(navController = navController) }
+        composable("homeScreen") { HomeScreen(navController = navController) }
+        composable("home") { HomeScreen(navController) }
+        composable("profile") { ProfileScreen(navController) }
+        composable("settings") { SettingScreen(navController) }
     }
 }
