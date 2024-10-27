@@ -40,8 +40,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.eunoiamo.nutritracker.presentation.component.GenderDropDown
 import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
+import com.eunoiamo.nutritracker.ui.theme.blue500
+import com.eunoiamo.nutritracker.ui.theme.blue700
 import com.eunoiamo.nutritracker.ui.theme.orange700
 
 @Preview
@@ -62,6 +65,7 @@ fun SignUpScreen(navController: NavController) {
     var age by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    var selectedGender by remember { mutableStateOf("") }
 
     val scrollState = rememberScrollState()
 
@@ -132,6 +136,11 @@ fun SignUpScreen(navController: NavController) {
                     label = "Age",
                     keyboardType = KeyboardType.Number
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                GenderDropDown(
+                    selectedGender = selectedGender,
+                    onGenderSelected = { selectedGender = it }
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
                 RoundedTextField(
@@ -157,7 +166,7 @@ fun SignUpScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp)
                         .align(Alignment.CenterHorizontally),
-                    colors = ButtonDefaults.buttonColors( orange700 )
+                    colors = ButtonDefaults.buttonColors( blue500 )
                 ) {
                     Text("Sign Up",
                         color = Color.White,
@@ -173,14 +182,14 @@ fun SignUpScreen(navController: NavController) {
                         tag = "SIGN_IN",
                         annotation = "signIn"
                     )
-                    withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold)) {
+                    withStyle(style = SpanStyle(color = blue700, fontWeight = FontWeight.Bold)) {
                         append("Sign in")
                     }
                     pop()
                 }
                 ClickableText(
                     text = annotatedText,
-                    style = TextStyle(color = Color.Black),
+                    style = TextStyle(color = Color.DarkGray),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onClick = { offset ->
                         annotatedText.getStringAnnotations(tag = "SIGN_IN", start = offset, end = offset)

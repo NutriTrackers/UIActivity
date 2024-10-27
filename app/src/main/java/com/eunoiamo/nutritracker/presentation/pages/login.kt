@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
@@ -39,6 +40,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
+import com.eunoiamo.nutritracker.ui.theme.blue500
+import com.eunoiamo.nutritracker.ui.theme.blue700
+import com.eunoiamo.nutritracker.ui.theme.blue800
 import com.eunoiamo.nutritracker.ui.theme.orange700
 
 @Preview
@@ -51,7 +55,7 @@ private fun loginpage () {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(navController: NavController) {
-    var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
 
@@ -80,10 +84,10 @@ fun LoginScreen(navController: NavController) {
                     color = Color.Black,
                 )
                 RoundedTextField(
-                    value = username,
-                    onValueChange = { username = it },
-                    label = "Username",
-                    leadingIcon = Icons.Default.Person
+                    value = email,
+                    onValueChange = { email = it },
+                    label = "Email",
+                    leadingIcon = Icons.Default.Email
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 RoundedTextField(
@@ -100,7 +104,7 @@ fun LoginScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp)
                         .align(Alignment.CenterHorizontally),
-                    colors = ButtonDefaults.buttonColors( orange700 )
+                    colors = ButtonDefaults.buttonColors( blue500 )
                 ) {
                     Text("Login",
                         color = Color.White,
@@ -108,21 +112,21 @@ fun LoginScreen(navController: NavController) {
                             .padding(vertical = 12.dp)
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(18.dp))
                 val annotatedText = buildAnnotatedString {
                     append("Don't have an account? ")
                     pushStringAnnotation(
                         tag = "SIGN_UP",
                         annotation = "signUp"
                     )
-                    withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold)) {
+                    withStyle(style = SpanStyle(color = blue700, fontWeight = FontWeight.Bold)) {
                         append("Sign up")
                     }
                     pop()
                 }
                 ClickableText(
                     text = annotatedText,
-                    style = TextStyle(color = Color.Black),
+                    style = TextStyle(color = Color.DarkGray),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onClick = { offset ->
                         annotatedText.getStringAnnotations(tag = "SIGN_UP", start = offset, end = offset)
