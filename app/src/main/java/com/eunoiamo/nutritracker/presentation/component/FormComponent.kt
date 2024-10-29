@@ -3,6 +3,7 @@ package com.eunoiamo.nutritracker.presentation.component
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -32,12 +33,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.eunoiamo.nutritracker.R
+import com.eunoiamo.nutritracker.ui.theme.blue100
+import com.eunoiamo.nutritracker.ui.theme.gray100
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +61,8 @@ fun RoundedTextField(
         label = { Text(label) },
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(RoundedCornerShape(16.dp))
+            .border(1.dp, Color.Gray, RoundedCornerShape(16.dp)),
         leadingIcon = leadingIcon?.let {
             { Icon(imageVector = it, contentDescription = "$label Icon", tint = Color.Gray) }
         },
@@ -78,7 +83,8 @@ fun RoundedTextField(
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = Color.Black,
             focusedLabelColor = Color.Black,
-            unfocusedLabelColor = Color.Gray
+            unfocusedLabelColor = Color.Gray,
+            containerColor = Color.White
         ),
         singleLine = true,
         visualTransformation = visualTransformation
@@ -97,7 +103,8 @@ fun GenderDropDown(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(Color.White)
+            .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
             .clickable { isDropDownExpanded = true }
             .padding(16.dp)
     ) {

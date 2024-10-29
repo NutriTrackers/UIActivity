@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -81,7 +82,8 @@ fun TopBarMainPage(
         title = {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(0.dp, 0.dp, 16.dp, 0.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -89,12 +91,11 @@ fun TopBarMainPage(
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Menu",
                     tint = blue500,
-                    modifier = Modifier
-                        .padding(8.dp)
                 )
                 Text(
                     text = "Nutri Trackers",
-                    color = blue500,
+                    color = Color.DarkGray,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterVertically)
 
                 )
@@ -102,8 +103,6 @@ fun TopBarMainPage(
                     imageVector = Icons.Default.Notifications,
                     contentDescription = "Notification",
                     tint = blue500,
-                    modifier = Modifier
-                        .padding(8.dp)
                 )
             }
         }
