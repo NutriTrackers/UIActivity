@@ -16,9 +16,9 @@ fun NavbarController () {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
-        composable("login") { LoginScreen(navController = navController) }
-        composable("signUp") { SignUpScreen(navController = navController) }
-        composable("homeScreen") { HomeScreen(navController = navController) }
+        composable("login") { LoginScreen(navController) }
+        composable("signUp") { SignUpScreen(navController) }
+        composable("homeScreen") { HomeScreen(navController) }
         composable("home") { HomeScreen(navController) }
         composable("profile") { ProfileScreen(navController) }
         composable("settings") { SettingScreen(navController) }

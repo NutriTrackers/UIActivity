@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
+import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 
 @Composable
@@ -23,7 +24,7 @@ import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 fun SettingScreen (navController: NavController) {
     Scaffold(
         topBar = {
-            TopBarWithBackButton(
+            TopBarMainPage(
                 navController = navController,
             )
         },

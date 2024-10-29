@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
+import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 
 @Preview
@@ -26,13 +27,12 @@ private fun HomePreview () {
     val navController = rememberNavController()
     HomeScreen(navController = navController)
 }
-
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Composable
     fun HomeScreen(navController: NavController){
         Scaffold(
             topBar = {
-                TopBarWithBackButton(
+                TopBarMainPage(
                     navController = navController,
                 )
             },
@@ -51,7 +51,7 @@ private fun HomePreview () {
                 )
                 {
                     Text(
-                        text = "Welcome Back !",
+                        text = "Home Screen",
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier

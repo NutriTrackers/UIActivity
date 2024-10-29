@@ -36,7 +36,7 @@ fun SplashScreen(navController: NavController) {
     val splashDuration = 2000L
     LaunchedEffect(key1 = true) {
         delay(splashDuration)
-        navController.navigate("signUp") {
+        navController.navigate("login") {
             popUpTo("splash") { inclusive = true }
         }
     }
