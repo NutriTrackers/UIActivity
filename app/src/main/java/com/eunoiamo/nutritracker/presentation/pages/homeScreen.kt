@@ -21,45 +21,39 @@ import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
 import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 
-@Preview
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun HomePreview () {
-    val navController = rememberNavController()
-    HomeScreen(navController = navController)
-}
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @Composable
-    fun HomeScreen(navController: NavController){
-        Scaffold(
-            topBar = {
-                TopBarMainPage(
-                    navController = navController,
-                )
-            },
-            bottomBar = {
-                BottomNavigationBar(
-                    navController = navController,
-                )
-            },
-            content = {
-                Column(
+fun HomeScreen(navController: NavController){
+    Scaffold(
+        topBar = {
+            TopBarMainPage(
+                navController = navController,
+            )
+        },
+        bottomBar = {
+            BottomNavigationBar(
+                navController = navController,
+            )
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 120.dp),
+                verticalArrangement = Arrangement.Center
+            )
+            {
+                Text(
+                    text = "Home Screen",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 120.dp),
-                    verticalArrangement = Arrangement.Center
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 140.dp),
+                    color = Color.Black,
                 )
-                {
-                    Text(
-                        text = "Home Screen",
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .padding(bottom = 140.dp),
-                        color = Color.Black,
-                    )
-                }
             }
-        )
-    }
+        }
+    )
+}

@@ -109,7 +109,9 @@ fun LoginScreen(navController: NavController) {
                     Text("Login",
                         color = Color.White,
                         modifier = Modifier
-                            .padding(vertical = 12.dp)
+                            .padding(vertical = 12.dp),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
                     )
                 }
                 Spacer(modifier = Modifier.height(18.dp))
