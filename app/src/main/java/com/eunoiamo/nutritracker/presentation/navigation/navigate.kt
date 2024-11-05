@@ -12,15 +12,14 @@ import com.eunoiamo.nutritracker.presentation.pages.SettingScreen
 import com.eunoiamo.nutritracker.presentation.pages.SignUpScreen
 
 @Composable
-fun NavbarController () {
+fun NavbarController(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
         composable("login") { LoginScreen(navController) }
         composable("signUp") { SignUpScreen(navController) }
-        composable("homeScreen") { HomeScreen(navController) }
-        composable("home") { HomeScreen(navController) }
-        composable("profile") { ProfileScreen(navController) }
-        composable("settings") { SettingScreen(navController) }
+        composable("homeScreen") { HomeScreen(navController, isDarkMode, onThemeToggle) }
+        composable("profile") { ProfileScreen(navController, isDarkMode, onThemeToggle) }
+        composable("settings") { SettingScreen(navController, isDarkMode, onThemeToggle) }
     }
 }

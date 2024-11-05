@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -23,6 +25,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
@@ -37,18 +42,25 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.R
 import com.eunoiamo.nutritracker.presentation.pages.HomeScreen
+import com.eunoiamo.nutritracker.ui.theme.NutriTrackerTheme
 import com.eunoiamo.nutritracker.ui.theme.blue100
 import com.eunoiamo.nutritracker.ui.theme.blue300
 import com.eunoiamo.nutritracker.ui.theme.blue500
+import com.eunoiamo.nutritracker.ui.theme.blue800
 import com.eunoiamo.nutritracker.ui.theme.gray200
 import com.eunoiamo.nutritracker.ui.theme.gray300
 import com.eunoiamo.nutritracker.ui.theme.orange400
 
 @Preview
 @Composable
-private fun NavPreview () {
+private fun NavPreview() {
     val navController = rememberNavController()
-    TopBarMainPage(navController = navController)
+
+    TopBarMainPage(
+        navController = navController,
+        isDarkMode = false,
+        onThemeToggle = {}
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,10 +86,13 @@ fun TopBarWithBackButton(
 @Composable
 fun TopBarMainPage(
     navController: NavController,
+    isDarkMode: Boolean,
+    onThemeToggle: () -> Unit
 ) {
+
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.White
+            containerColor = if (isDarkMode) Color.Black else Color.White
         ),
         title = {
             Row(
@@ -94,28 +109,33 @@ fun TopBarMainPage(
                 )
                 Text(
                     text = "Nutri Trackers",
-                    color = Color.DarkGray,
+                    color = if (isDarkMode) Color.White else Color.DarkGray,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterVertically)
-
                 )
                 Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "Notification",
-                    tint = blue500,
+                    painter = painterResource(if (isDarkMode) R.drawable.sun else R.drawable.moon),
+                    contentDescription = "Toggle Theme",
+                    tint = if (isDarkMode) Color.White else blue500,
+                    modifier = Modifier
+                        .clickable { onThemeToggle() }
+                        .size(24.dp)
                 )
             }
         }
     )
+    NutriTrackerTheme(darkTheme = isDarkMode) {
+    }
 }
 
+
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(navController: NavController, isDarkMode: Boolean) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
-        containerColor = blue500,
+        containerColor = if (isDarkMode) Color.Black else blue500, // Change background color based on theme
         tonalElevation = 4.dp,
         modifier = Modifier
             .padding(16.dp)
@@ -125,18 +145,18 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationBarItem(
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text(text = "Home") },
-            selected = currentDestination?.route == "home",
+            selected = currentDestination?.route == "home" || currentDestination?.route == "homeScreen",
             onClick = {
-                navController.navigate("home") {
-                    popUpTo(navController.graph.startDestinationId)
+                navController.navigate("homeScreen") {
+                    popUpTo("homeScreen") { saveState = true }
                     launchSingleTop = true
                 }
             },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = blue500,
-                unselectedIconColor = Color.White,
-                selectedTextColor = blue500,
-                unselectedTextColor = Color.White
+                selectedIconColor =  blue500,
+                unselectedIconColor =  Color.White,
+                selectedTextColor =  Color.White,
+                unselectedTextColor =Color.White
             )
         )
 
@@ -151,10 +171,10 @@ fun BottomNavigationBar(navController: NavController) {
                 }
             },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = blue500,
-                unselectedIconColor = Color.White,
-                selectedTextColor = blue500,
-                unselectedTextColor = Color.White
+                selectedIconColor =  blue500,
+                unselectedIconColor =  Color.White,
+                selectedTextColor =  Color.White,
+                unselectedTextColor =Color.White
             )
         )
 
@@ -169,10 +189,10 @@ fun BottomNavigationBar(navController: NavController) {
                 }
             },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = blue500,
-                unselectedIconColor = Color.White,
-                selectedTextColor = blue500,
-                unselectedTextColor = Color.White
+                selectedIconColor =  blue500,
+                unselectedIconColor =  Color.White,
+                selectedTextColor =  Color.White,
+                unselectedTextColor =Color.White
             )
         )
     }

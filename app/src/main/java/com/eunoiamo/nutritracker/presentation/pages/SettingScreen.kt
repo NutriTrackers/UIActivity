@@ -19,37 +19,38 @@ import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
 import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 
-@Composable
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun SettingScreen (navController: NavController) {
+@Composable
+fun SettingScreen(navController: NavController, isDarkMode: Boolean, onThemeToggle: () -> Unit) {
     Scaffold(
         topBar = {
             TopBarMainPage(
                 navController = navController,
+                isDarkMode = isDarkMode,
+                onThemeToggle = onThemeToggle
             )
         },
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
+                isDarkMode = isDarkMode
             )
         },
-        content = {
+        content = { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 120.dp),
-                verticalArrangement = Arrangement.Center
-            )
-            {
+                    .padding(paddingValues)
+                    .padding(horizontal = 16.dp, vertical = 120.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
                     text = "Setting Screen",
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 140.dp),
-                    color = Color.Black,
+                    color = if (isDarkMode) Color.White else Color.Black,
                 )
             }
         }

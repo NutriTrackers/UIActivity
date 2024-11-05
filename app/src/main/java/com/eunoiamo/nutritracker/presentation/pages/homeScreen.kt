@@ -3,8 +3,12 @@ package com.eunoiamo.nutritracker.presentation.pages
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,42 +22,62 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
+import com.eunoiamo.nutritracker.presentation.component.FoodCard
 import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
-import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview
 @Composable
-fun HomeScreen(navController: NavController){
+private fun HomePreview() {
+    val navController = rememberNavController()
+
+    HomeScreen(
+        navController = navController,
+        isDarkMode = false,
+        onThemeToggle = {}
+    )
+}
+
+@Composable
+fun HomeScreen(navController: NavController, isDarkMode: Boolean, onThemeToggle: () -> Unit) {
     Scaffold(
         topBar = {
             TopBarMainPage(
                 navController = navController,
+                isDarkMode = isDarkMode,
+                onThemeToggle = onThemeToggle
             )
         },
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
+                isDarkMode = isDarkMode
             )
         },
-        content = {
-            Column(
+        content = { paddingValues ->
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2), // 2 items per row
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 120.dp),
-                verticalArrangement = Arrangement.Center
-            )
-            {
-                Text(
-                    text = "Home Screen",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 140.dp),
-                    color = Color.Black,
+                    .padding(paddingValues)
+            ) {
+                // List of food items with their images and names
+                val foodItems = listOf(
+                    "https://i.ibb.co.com/Kwm8cDw/image.png" to "Es Dawet",
+                    "https://i.ibb.co.com/Kwm8cDw/image.png" to "Mie Ayam",
+                    "https://i.ibb.co.com/Kwm8cDw/image.png" to "Nasi Goreng",
+                    "https://i.ibb.co.com/Kwm8cDw/image.png" to "Soto Ayam"
+                    // Add more food items here
                 )
+
+                items(foodItems.size) { index ->
+                    val (imageUrl, foodName) = foodItems[index]
+                    FoodCard(
+                        foodName = foodName,
+                        foodImageUrl = imageUrl
+                    )
+                }
             }
         }
     )
 }
+

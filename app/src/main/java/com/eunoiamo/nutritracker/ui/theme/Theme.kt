@@ -18,7 +18,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = gray100,
     tertiary = orange200,
 
-    background = Color.White,
+    background = gray50,
     surface = gray50,
     onPrimary = gray900,
     onSecondary = gray800,
@@ -42,7 +42,7 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun NutriTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
