@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.component.SplashScreen
 import com.eunoiamo.nutritracker.presentation.pages.HomeScreen
+import com.eunoiamo.nutritracker.presentation.pages.InputForm
 import com.eunoiamo.nutritracker.presentation.pages.LoginScreen
 import com.eunoiamo.nutritracker.presentation.pages.ProfileScreen
 import com.eunoiamo.nutritracker.presentation.pages.SettingScreen
@@ -21,5 +22,6 @@ fun NavbarController(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
         composable("homeScreen") { HomeScreen(navController, isDarkMode, onThemeToggle) }
         composable("profile") { ProfileScreen(navController, isDarkMode, onThemeToggle) }
         composable("settings") { SettingScreen(navController, isDarkMode, onThemeToggle) }
+        composable("inputForm") { InputForm(navController) }
     }
 }
