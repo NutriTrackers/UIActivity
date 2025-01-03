@@ -5,12 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
@@ -21,8 +23,10 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -92,54 +96,25 @@ fun RoundedTextField(
 }
 
 @Composable
-fun GenderDropDown(
-    selectedGender: String,
-    onGenderSelected: (String) -> Unit
-) {
-    var isDropDownExpanded by remember { mutableStateOf(false) }
-    val genderOptions = listOf("Male", "Female")
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.White)
-            .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
-            .clickable { isDropDownExpanded = true }
-            .padding(16.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = selectedGender.ifEmpty { "Select Gender" },
-                color = if (selectedGender.isEmpty()) Color.Gray else Color.Black,
-                modifier = Modifier.weight(3f)
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = "Dropdown Icon",
-                modifier = Modifier.padding(start = 8.dp)
-            )
-        }
-        DropdownMenu(
-            expanded = isDropDownExpanded,
-            onDismissRequest = { isDropDownExpanded = false },
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-
-        ) {
-            genderOptions.forEach { gender ->
-                DropdownMenuItem(
-                    text = { Text(text = gender) },
-                    onClick = {
-                        onGenderSelected(gender)
-                        isDropDownExpanded = false
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
-    }
+fun colorComponentField(): TextFieldColors {
+    return TextFieldDefaults.colors(
+        focusedTextColor = Color.Gray,
+        unfocusedTextColor = Color.Gray,
+        disabledTextColor = Color.Gray,
+        errorTextColor = Color.Red,
+        focusedContainerColor = Color.LightGray,
+        unfocusedContainerColor = Color.White,
+        disabledContainerColor = Color.LightGray,
+        errorContainerColor = Color.Red,
+        cursorColor = Color.Gray,
+        errorCursorColor = Color.Red,
+        selectionColors = TextSelectionColors(
+            handleColor = Color.Gray,
+            backgroundColor = Color.Cyan.copy(alpha = 0.4f)
+        ),
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        errorIndicatorColor = Color.Red
+    )
 }

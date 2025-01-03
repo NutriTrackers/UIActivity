@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -161,11 +162,11 @@ fun BottomNavigationBar(navController: NavController, isDarkMode: Boolean) {
         )
 
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-            label = { Text(text = "Profile") },
-            selected = currentDestination?.route == "profile",
+            icon = { Icon(Icons.Default.List, contentDescription = "InputForm") },
+            label = { Text(text = "Predict") },
+            selected = currentDestination?.route == "inputform",
             onClick = {
-                navController.navigate("profile") {
+                navController.navigate("inputform") {
                     popUpTo(navController.graph.startDestinationId)
                     launchSingleTop = true
                 }

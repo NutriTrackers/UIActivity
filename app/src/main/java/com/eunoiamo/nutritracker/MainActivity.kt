@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
             var isDarkMode by remember { mutableStateOf(false) }
 
             NutriTrackerTheme(darkTheme = isDarkMode) {
-                // Ensure NavbarController receives the theme state and toggle function
                 NavbarController(
                     isDarkMode = isDarkMode,
                     onThemeToggle = { isDarkMode = !isDarkMode }

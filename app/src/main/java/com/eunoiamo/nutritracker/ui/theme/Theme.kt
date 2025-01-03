@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-// Define color schemes using your Tailwind palette
 private val LightColorScheme = lightColorScheme(
     primary = blue100,
     secondary = gray100,

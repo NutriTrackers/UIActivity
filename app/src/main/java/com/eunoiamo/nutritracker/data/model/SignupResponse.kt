@@ -1,4 +1,6 @@
 package com.eunoiamo.nutritracker.data.model
 
-class SignupResponse {
-}
+data class SignUpResponse(
+    val success: Boolean,
+    val message: String
+)
