@@ -1,5 +1,6 @@
 package com.eunoiamo.nutritracker.presentation.component
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 
@@ -53,10 +55,6 @@ fun FoodCard(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(foodImageUrl)
                     .crossfade(true)
-                    .listener(
-                        onSuccess = { _, _ -> Log.d("Coil", "Image loaded successfully") },
-                        onError = { _, result -> Log.e("Coil", "Error loading image: $result") }
-                    )
                     .build(),
                 contentDescription = "Image of $foodName",
                 modifier = Modifier

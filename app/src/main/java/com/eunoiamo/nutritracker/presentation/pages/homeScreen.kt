@@ -28,10 +28,9 @@ import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 @Composable
 private fun HomePreview() {
     val navController = rememberNavController()
-
     HomeScreen(
         navController = navController,
-        isDarkMode = false,
+        isDarkMode = true,
         onThemeToggle = {}
     )
 }
@@ -54,21 +53,18 @@ fun HomeScreen(navController: NavController, isDarkMode: Boolean, onThemeToggle:
         },
         content = { paddingValues ->
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2), // 2 items per row
+                columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp),
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                // List of food items with their images and names
                 val foodItems = listOf(
                     "https://i.ibb.co.com/Kwm8cDw/image.png" to "Es Dawet",
                     "https://i.ibb.co.com/Kwm8cDw/image.png" to "Mie Ayam",
                     "https://i.ibb.co.com/Kwm8cDw/image.png" to "Nasi Goreng",
                     "https://i.ibb.co.com/Kwm8cDw/image.png" to "Soto Ayam"
-                    // Add more food items here
                 )
-
                 items(foodItems.size) { index ->
                     val (imageUrl, foodName) = foodItems[index]
                     FoodCard(

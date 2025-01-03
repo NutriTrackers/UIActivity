@@ -1,9 +1,11 @@
 package com.eunoiamo.nutritracker.presentation.pages
 
+import SignUpViewModel
 import android.annotation.SuppressLint
+import android.widget.Toast
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +34,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,12 +41,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.eunoiamo.nutritracker.presentation.component.GenderDropDown
 import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.presentation.component.TopBarWithBackButton
 import com.eunoiamo.nutritracker.ui.theme.blue500
 import com.eunoiamo.nutritracker.ui.theme.blue700
-import com.eunoiamo.nutritracker.ui.theme.orange700
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.eunoiamo.nutritracker.presentation.utils.CustomToast
+
 
 @Preview
 @Composable
@@ -58,15 +61,12 @@ fun signUpPreview() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SignUpScreen(navController: NavController) {
+    val viewModel: SignUpViewModel = viewModel()
+    val context = LocalContext.current
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
-    var weight by remember { mutableStateOf("") }
-    var height by remember { mutableStateOf("") }
-    var age by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var selectedGender by remember { mutableStateOf("") }
-
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -109,40 +109,7 @@ fun SignUpScreen(navController: NavController) {
                     leadingIcon = Icons.Default.Email)
 
                 Spacer(modifier = Modifier.height(8.dp))
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    RoundedTextField(
-                        value = weight,
-                        onValueChange = { weight = it },
-                        label = "Weight (Kg)",
-                        keyboardType = KeyboardType.Number,
-                        modifier = Modifier.weight(1f).padding(end = 8.dp)
-                    )
-                    RoundedTextField(
-                        value = height,
-                        onValueChange = { height = it },
-                        label = "Height (cm)",
-                        keyboardType = KeyboardType.Number,
-                        modifier = Modifier.weight(1f).padding(start = 8.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                RoundedTextField(
-                    value = age,
-                    onValueChange = { age = it },
-                    label = "Age",
-                    keyboardType = KeyboardType.Number
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                GenderDropDown(
-                    selectedGender = selectedGender,
-                    onGenderSelected = { selectedGender = it }
-                )
 
-                Spacer(modifier = Modifier.height(8.dp))
                 RoundedTextField(
                     value = password,
                     onValueChange = { password = it },
@@ -161,7 +128,18 @@ fun SignUpScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
-                    onClick = { navController.navigate("login") },
+                    onClick = {
+                        if (password != confirmPassword) {
+                            CustomToast.show(context, "Passwords do not match", isSuccess = false)
+                        } else {
+                            viewModel.registerUser(username, email, password, onSuccess = {
+                                CustomToast.show(context, "Registration Successful", isSuccess = true)
+                                navController.navigate("login")
+                            }, onError = { errorMessage ->
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                            })
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp)

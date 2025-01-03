@@ -8,7 +8,6 @@ import com.eunoiamo.nutritracker.presentation.component.SplashScreen
 import com.eunoiamo.nutritracker.presentation.pages.HomeScreen
 import com.eunoiamo.nutritracker.presentation.pages.InputForm
 import com.eunoiamo.nutritracker.presentation.pages.LoginScreen
-import com.eunoiamo.nutritracker.presentation.pages.ProfileScreen
 import com.eunoiamo.nutritracker.presentation.pages.SettingScreen
 import com.eunoiamo.nutritracker.presentation.pages.SignUpScreen
 
@@ -20,8 +19,7 @@ fun NavbarController(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
         composable("login") { LoginScreen(navController) }
         composable("signUp") { SignUpScreen(navController) }
         composable("homeScreen") { HomeScreen(navController, isDarkMode, onThemeToggle) }
-        composable("profile") { ProfileScreen(navController, isDarkMode, onThemeToggle) }
+        composable("inputform") { InputForm(navController, isDarkMode, onThemeToggle) }
         composable("settings") { SettingScreen(navController, isDarkMode, onThemeToggle) }
-        composable("inputForm") { InputForm(navController) }
     }
 }
