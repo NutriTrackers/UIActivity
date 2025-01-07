@@ -2,6 +2,7 @@ package com.eunoiamo.nutritracker.presentation.pages
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -72,13 +74,19 @@ fun BmiResultScreen(navController: NavHostController) {
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(30.dp))
 
                 // BMI Information Section
                 Card(
                     shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFFDCF0E4)),
-                    modifier = Modifier.fillMaxWidth()
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFDCF0E4),
+                        contentColor = Color.Black
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shadow(elevation = 7.dp, shape = RoundedCornerShape(16.dp))
+                        .border(width = 3.dp, color = Color(0xFF3E7B27))
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text("BMI: 24.22", fontSize = 16.sp)

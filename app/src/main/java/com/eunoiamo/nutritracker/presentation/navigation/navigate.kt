@@ -22,7 +22,7 @@ fun NavbarController(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
         composable("homeScreen") { HomeScreen(navController, isDarkMode, onThemeToggle) }
         composable("inputform") { InputForm(navController, isDarkMode, onThemeToggle) }
         composable("settings") { SettingScreen(navController, isDarkMode, onThemeToggle) }
-        composable("inputForm") { InputForm(navController) }
+        composable("inputForm") { InputForm(navController, isDarkMode, onThemeToggle) }
         composable("bmiResult") { BmiResultScreen(navController) }
     }
 }
