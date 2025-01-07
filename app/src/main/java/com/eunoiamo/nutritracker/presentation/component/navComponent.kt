@@ -1,5 +1,6 @@
 package com.eunoiamo.nutritracker.presentation.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -103,10 +104,17 @@ fun TopBarMainPage(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu",
-                    tint = blue500,
+                Image(
+                    painter = painterResource(id = R.drawable.logo_no_background),
+                    contentDescription = "logo no background",
+                    modifier = Modifier
+                        .size(35.dp)
+                        .clickable {
+                            navController.navigate("homeScreen") {
+                                popUpTo(navController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
+                        }
                 )
                 Text(
                     text = "Nutri Trackers",

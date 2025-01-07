@@ -95,26 +95,18 @@ fun RoundedTextField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun colorComponentField(): TextFieldColors {
-    return TextFieldDefaults.colors(
-        focusedTextColor = Color.Gray,
-        unfocusedTextColor = Color.Gray,
-        disabledTextColor = Color.Gray,
-        errorTextColor = Color.Red,
-        focusedContainerColor = Color.LightGray,
-        unfocusedContainerColor = Color.White,
-        disabledContainerColor = Color.LightGray,
-        errorContainerColor = Color.Red,
-        cursorColor = Color.Gray,
-        errorCursorColor = Color.Red,
-        selectionColors = TextSelectionColors(
-            handleColor = Color.Gray,
-            backgroundColor = Color.Cyan.copy(alpha = 0.4f)
-        ),
-        focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent,
-        disabledIndicatorColor = Color.Transparent,
-        errorIndicatorColor = Color.Red
+    return TextFieldDefaults.textFieldColors(
+        focusedIndicatorColor = Color.Transparent,  // Menghilangkan garis fokus
+        unfocusedIndicatorColor = Color.Transparent,  // Menghilangkan garis tidak fokus
+        cursorColor = Color.Black,  // Warna kursor hitam
+        focusedLabelColor = Color.Black,  // Warna label saat fokus
+        unfocusedLabelColor = Color.Gray,  // Warna label saat tidak fokus
+        containerColor = Color.White  // Warna kontainer putih
     )
 }
+
+
+

@@ -31,17 +31,11 @@ import com.eunoiamo.nutritracker.data.ViewModel.PredictViewModel
 import com.eunoiamo.nutritracker.data.api.ApiClient
 import com.eunoiamo.nutritracker.ui.theme.blue500
 
-@Preview
-@Composable
-private fun BmiResultScreenPreview() {
-    val navController = rememberNavController()
-    BmiResultScreen(navController = navController)
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BmiResultScreen(navController: NavHostController) {
+fun BmiResultScreen(navController: NavHostController, isDarkMode: Boolean, onThemeToggle: () -> Unit) {
     // Mengambil hasil prediksi yang sudah disimpan
     val predictionResult = ApiClient.getPredictionResult()
 
@@ -71,7 +65,7 @@ fun BmiResultScreen(navController: NavHostController) {
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    color = Color.Black
+                    color = if (isDarkMode) Color.White else Color(0xFF333333),
                 )
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -94,7 +88,7 @@ fun BmiResultScreen(navController: NavHostController) {
                             Text("Daily Calories: ${result.caloriesNeeded} kcal", fontSize = 16.sp)
                             Spacer(modifier = Modifier.height(8.dp))
                             Text("Nutritional Details:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                            Text("Protein: ${result.bmr} g", fontSize = 14.sp)
+                            Text("BMR: ${result.bmr} g", fontSize = 14.sp)
                         }
                     }
 

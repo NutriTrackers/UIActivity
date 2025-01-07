@@ -37,7 +37,7 @@ private fun Inputformprev () {
     val navController = rememberNavController()
     InputForm(
         navController = navController,
-        isDarkMode = true,
+        isDarkMode = false,
         onThemeToggle = {}
     )
 }
@@ -94,7 +94,7 @@ fun InputForm(navController: NavController, isDarkMode: Boolean, onThemeToggle: 
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        color = Color.Black,
+                        color = if (isDarkMode) Color.White else Color(0xFF333333),
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center
                     )
