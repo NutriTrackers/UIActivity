@@ -1,9 +1,11 @@
 package com.eunoiamo.nutritracker.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.eunoiamo.nutritracker.data.ViewModel.PredictViewModel
 import com.eunoiamo.nutritracker.presentation.component.SplashScreen
 import com.eunoiamo.nutritracker.presentation.pages.BmiResultScreen
 import com.eunoiamo.nutritracker.presentation.pages.HomeScreen
@@ -22,7 +24,7 @@ fun NavbarController(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
         composable("homeScreen") { HomeScreen(navController, isDarkMode, onThemeToggle) }
         composable("inputform") { InputForm(navController, isDarkMode, onThemeToggle) }
         composable("settings") { SettingScreen(navController, isDarkMode, onThemeToggle) }
-        composable("inputForm") { InputForm(navController) }
-        composable("bmiResult") { BmiResultScreen(navController) }
+        composable("inputForm") { InputForm(navController, isDarkMode, onThemeToggle) }
+        composable("bmiResult") { BmiResultScreen(navController)}
     }
 }

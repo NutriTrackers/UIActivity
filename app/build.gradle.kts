@@ -68,10 +68,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation (libs.androidx.navigation.compose)
     implementation ("androidx.compose.material3:material3:1.1.1")
-    implementation ("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation (libs.androidx.material.icons.extended)
     implementation("io.coil-kt.coil3:coil-compose:3.0.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
+//    implementation (libs.androidx.hilt.navigation.compose)
 }

@@ -164,9 +164,9 @@ fun BottomNavigationBar(navController: NavController, isDarkMode: Boolean) {
         NavigationBarItem(
             icon = { Icon(Icons.Default.List, contentDescription = "InputForm") },
             label = { Text(text = "Predict") },
-            selected = currentDestination?.route == "inputform",
+            selected = currentDestination?.route == "inputForm",
             onClick = {
-                navController.navigate("inputform") {
+                navController.navigate("inputForm") {
                     popUpTo(navController.graph.startDestinationId)
                     launchSingleTop = true
                 }

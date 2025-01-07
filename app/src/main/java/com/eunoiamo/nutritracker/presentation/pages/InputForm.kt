@@ -1,28 +1,27 @@
 package com.eunoiamo.nutritracker.presentation.pages
 
+import com.eunoiamo.nutritracker.data.ViewModel.PredictViewModel
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.eunoiamo.nutritracker.presentation.component.BottomNavigationBar
@@ -30,10 +29,11 @@ import com.eunoiamo.nutritracker.presentation.component.TopBarMainPage
 import com.eunoiamo.nutritracker.ui.theme.blue500
 import com.eunoiamo.nutritracker.presentation.component.RoundedTextField
 import com.eunoiamo.nutritracker.presentation.component.colorComponentField
+import com.eunoiamo.nutritracker.presentation.utils.CustomToast
 
 @Preview
 @Composable
-private fun inputformprev () {
+private fun Inputformprev () {
     val navController = rememberNavController()
     InputForm(
         navController = navController,
@@ -46,19 +46,17 @@ private fun inputformprev () {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun InputForm(navController: NavController, isDarkMode: Boolean, onThemeToggle: () -> Unit) {
+    val viewModel: PredictViewModel = viewModel()
+    val context = LocalContext.current
     var weight by remember { mutableStateOf("") }
     var height by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
     var activityLevel by remember { mutableStateOf("") }
-    var foodRestrictions by remember { mutableStateOf("") }
-    var genderOptions = listOf("Laki-laki", "Perempuan")
-    var activityLevelOptions = listOf("Sedentary", "Light", "Moderate", "Active", "Very Active")
-    var foodRestrictionsOptions = listOf("Dairy", "Gluten", "Nuts", "Seafood", "Eggs")
-
+    val genderOptions = listOf("Male", "Female")
+    val activityLevelOptions = listOf("Sedentary", "Light", "Moderate", "Active", "Very Active")
     var genderExpanded by remember { mutableStateOf(false) }
     var activityLevelExpanded by remember { mutableStateOf(false) }
-    var foodRestrictionsExpanded by remember { mutableStateOf(false) }
 
     val scrollState = rememberScrollState()
 
@@ -202,48 +200,33 @@ fun InputForm(navController: NavController, isDarkMode: Boolean, onThemeToggle: 
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    // Food Restrictions Input
-                    ExposedDropdownMenuBox(
-                        expanded = foodRestrictionsExpanded,
-                        onExpandedChange = { foodRestrictionsExpanded = !foodRestrictionsExpanded }
-                    ) {
-                        TextField(
-                            value = foodRestrictions,
-                            onValueChange = { foodRestrictions = it },
-                            label = { Text("Pantangan Makanan") },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = foodRestrictionsExpanded)
-                            },
-                            readOnly = true,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .menuAnchor()
-                                .border(1.dp, Color.Gray, RoundedCornerShape(16.dp)),
-                            colors = colorComponentField()
-                        )
-                        ExposedDropdownMenu(
-                            expanded = foodRestrictionsExpanded,
-                            onDismissRequest = { foodRestrictionsExpanded = false }
-                        ) {
-                            foodRestrictionsOptions.forEach { option ->
-                                DropdownMenuItem(
-                                    text = { Text(option) },
-                                    onClick = {
-                                        foodRestrictions = option
-                                        foodRestrictionsExpanded = false
-                                    }
-                                )
-                            }
-                        }
-                    }
                     Spacer(modifier = Modifier.height(24.dp))
 
                     // Submit Button
                     Button(
                         onClick = {
-                            // TODO: Handle submit action
+                            val ageValue = age.toIntOrNull() ?: 0
+                            val weightValue = weight.toFloatOrNull() ?: 0f
+                            val heightValue = height.toFloatOrNull() ?: 0f
+                            val genderValue = gender
+                            val activityLevelValue = activityLevel
+
+                            // Call the ViewModel's predict method
+                            viewModel.predict(
+                                age = ageValue,
+                                weight = weightValue,
+                                height = heightValue,
+                                gender = genderValue,
+                                activityLevel = activityLevelValue,
+                                onSuccess = {predictionResult ->
+                                    CustomToast.show(context, predictionResult.toString(), isSuccess = true)
+                                    Log.i("button", "Prediction result: $predictionResult")
+                                    navController.navigate("bmiResult")
+                                },
+                                onError = { errorMessage ->
+                                    CustomToast.show(context, errorMessage, isSuccess = false)
+                                }
+                            )
                         },
                         modifier = Modifier
                             .fillMaxWidth()

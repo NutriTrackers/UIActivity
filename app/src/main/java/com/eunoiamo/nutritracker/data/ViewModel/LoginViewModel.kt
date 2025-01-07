@@ -1,3 +1,5 @@
+package com.eunoiamo.nutritracker.data.ViewModel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eunoiamo.nutritracker.data.api.ApiClient
@@ -18,7 +20,7 @@ class LoginViewModel : ViewModel() {
     fun loginUser(
         email: String,
         password: String,
-        onSuccess: () -> Unit,
+        onSuccess: (String) -> Unit, // Pass the token in onSuccess
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
@@ -26,8 +28,17 @@ class LoginViewModel : ViewModel() {
             try {
                 val request = LoginRequest(email, password)
                 val response = apiService.login(request)
+
                 if (response.isSuccessful) {
-                    onSuccess()
+                    // Extract the token from the response
+                    val token = response.body()?.token // Assuming the response contains a token field
+
+                    if (!token.isNullOrEmpty()) {
+                        // Pass the token to onSuccess
+                        onSuccess(token)
+                    } else {
+                        onError("Token not found in response")
+                    }
                 } else {
                     val errorBody = response.errorBody()?.string() ?: "Unknown error"
                     onError("Failed: $errorBody")
@@ -42,3 +53,4 @@ class LoginViewModel : ViewModel() {
         }
     }
 }
+

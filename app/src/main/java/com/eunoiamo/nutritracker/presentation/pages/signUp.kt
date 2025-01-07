@@ -1,6 +1,6 @@
 package com.eunoiamo.nutritracker.presentation.pages
 
-import SignUpViewModel
+import com.eunoiamo.nutritracker.data.ViewModel.SignUpViewModel
 import android.annotation.SuppressLint
 import android.widget.Toast
 

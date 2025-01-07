@@ -1,3 +1,5 @@
+package com.eunoiamo.nutritracker.data.ViewModel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eunoiamo.nutritracker.data.api.ApiClient
